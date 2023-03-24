@@ -14,28 +14,27 @@ export default function Home() {
   const [allMessages, setAllMessages] = useState<messageProps[]>([
     {
       id: 1,
-      username: "Jane",
+      username: "John Doe",
       message:
-        "There is an important meeting on the 9th at 2pm IST. My cat just had kittens.",
-    },
-    {
-      id: 2,
-      username: "Joey",
-      message:
-        "There is an important seminar on the 10th at 5pm IST. I'm going to the movies tonight.",
+        "There is an important meeting on the 13/04/2023 at 2pm IST. My cat just had kittens.",
     },
   ]);
-  const [username, setUsername] = useState<string>("");
-  const [message, setMessage] = useState<string>("");
+  const [inputUsername, setInputUsername] = useState<string>("");
+  const [inputMessage, setInputMessage] = useState<string>("");
 
-  async function res(prompt: object) {
+  async function res(prompt: any) {
+    if (!prompt || allMessages.length === 0) {
+      alert("Enter a message to summarize");
+      setLoadingMessages(false);
+      return;
+    }
     await fetch("/api/gpt", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        prompt: prompt,
+        prompt,
       }),
     })
       .then((res) => {
@@ -51,59 +50,86 @@ export default function Home() {
   }
 
   return (
-    <main className="flex flex-col gap-6 items-center justify-center min-h-screen w-full max-w-[72rem] mx-auto my-10">
+    <main className="flex flex-col gap-6 items-center justify-center min-h-screen w-full max-w-[72rem] mx-auto px-4 my-10">
       <h1 className="text-2xl font-semibold text-white">SummarizeGPT</h1>
-      <p className="text-lg text-white">
+      <p className="lg:text-lg text-base text-white">
         This web app uses the OpenAI ChatGPT 3.5-Turbo API to summarize any
         previous messages sent by other uses in a simulated chat program.
         Clicking 'Summarize Messages' will return a short and informative
         paragraph containing pertinent information, such as important meetings,
-        dates, timings and more.
+        dates, timings and more. Test out the summary bot demo by entering a
+        custom username and a custom message and click 'Summarize'.
       </p>
-      {allMessages.map((message, index) => {
+      <span className="text-white">
+        OpenAI API Summarize Bot by{" "}
+        <a
+          href="https://pranjalg420.vercel.app"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-500 hover:text-blue-400 transition-colors"
+        >
+          Pranjal Gupta
+        </a>
+      </span>
+      {allMessages.map(({ username, message, id }) => {
         return (
-          <div className="flex flex-col items-start rounded p-4 bg-slate-700 text-white w-full">
-            <h1 className="font-semibold text-xl">{message.username}</h1>
-            <p key={index} className="text-lg">
-              - {message.message}
-            </p>
+          <div
+            key={id}
+            className="flex flex-col items-start gap-2 rounded p-4 bg-slate-700 text-white w-full"
+          >
+            <h1 className="font-semibold lg:text-xl text-lg">{username}</h1>
+            <p className="lg:text-lg text-base">- {message}</p>
+            <button
+              className="bg-slate-900 px-2 py-1 font-semibold hover:bg-slate-800 transition-colors rounded text-white"
+              onClick={() => {
+                setAllMessages(
+                  allMessages.filter((message) => message.id !== id)
+                );
+              }}
+            >
+              Remove
+            </button>
           </div>
         );
       })}
       <div className="flex flex-col gap-2 items-start bg-slate-700 w-full p-4 rounded">
         <input
           type="text"
-          className="bg-slate-600 px-1 py-0.5 text-white placeholder:text-slate-400 rounded w-96"
+          className="bg-slate-600 px-1 py-0.5 text-white placeholder:text-slate-400 rounded w-"
           placeholder="Enter a test username"
           maxLength={20}
           onChange={(e) => {
-            setUsername(e.target.value);
+            setInputUsername(e.target.value);
           }}
-          value={username}
+          value={inputUsername}
         />
         <input
           type="text"
           className="bg-slate-600 px-1 py-0.5 text-white placeholder:text-slate-400 rounded w-full"
           placeholder="Enter a test message"
-          maxLength={60}
+          maxLength={120}
           onChange={(e) => {
-            setMessage(e.target.value);
+            setInputMessage(e.target.value);
           }}
-          value={message}
+          value={inputMessage}
         />
         <button
           className="bg-slate-600 px-2 py-1 font-semibold hover:bg-slate-500 transition-colors rounded text-white mx-auto"
           onClick={() => {
+            if (allMessages.length >= 5) {
+              alert("You can only add 5 text messages to the list.");
+              return;
+            }
             setAllMessages([
               ...allMessages,
               {
                 id: allMessages.length + 1,
-                username: username,
-                message: message,
+                username: inputUsername,
+                message: inputMessage,
               },
             ]);
-            setUsername("");
-            setMessage("");
+            setInputUsername("");
+            setInputMessage("");
           }}
         >
           Add Message to Summarize

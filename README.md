@@ -1,38 +1,23 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# SummarizeGPT: A tool for summarizing text messages in a chatting application
 
-## Getting Started
+Website link:
 
-First, run the development server:
+## Introduction
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+This is a tool for summarizing text messages in a chatting application. It is
+based on the
+[GPT-3.5-turbo API](https://openai.com/blog/introducing-chatgpt-and-whisper-apis)
+from OpenAI. The web application was written in [Next.js](https://nextjs.org/),
+utilizing [Tailwind CSS](https://tailwindcss.com/) for styling and the web
+application is hosted on [Vercel](https://vercel.com/). It works by sending the
+text messages to the API, which then sents the messages in a prompt friendly
+format to the OpenAI API endpoint. The endpoint returns a summarized paragraph
+of all the messages, with only the important parts.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+In this demo web app, users can add a custom username and message combination to
+simulate a message on the rocket.chat application. The user can then click the
+"Summarize" button to send the messages to the API and get a summarized version
+of the messages. Ideally, in the production environment, the user can type a
+command, such as `/summary` followed by an integer to specify the number of
+messages to summarize or simply `/summary all` to summarize all the messages in
+between when the user last logged off and when they last logged on.

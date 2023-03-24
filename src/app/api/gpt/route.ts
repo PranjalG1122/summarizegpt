@@ -7,11 +7,11 @@ export async function POST(request: Request, response: Response) {
   const openai = new OpenAIApi(configuration);
 
   const body = JSON.parse(await request.text()).prompt.map(
-    ({ username, messages }: { username: string; messages: string[] }) => {
+    ({ username, message }: { username: string; message: string }) => {
       return {
         role: "user",
         name: username,
-        content: `${username}: ${messages.join("\n")}`,
+        content: `${username}: ${message}`,
       };
     }
   );

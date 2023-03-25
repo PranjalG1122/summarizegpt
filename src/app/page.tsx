@@ -9,12 +9,13 @@ interface messageProps {
 }
 
 export default function Home() {
+  const VALID_USERNAME = /^[a-zA-Z0-9_]{4,20}$/;
   const [summarizedMessage, setSummarizedMessage] = useState<string>("");
   const [loadingMessages, setLoadingMessages] = useState<boolean>(false);
   const [allMessages, setAllMessages] = useState<messageProps[]>([
     {
       id: 1,
-      username: "John Doe",
+      username: "John_Doe",
       message:
         "There is an important meeting on the 13/04/2023 at 2pm IST. My cat just had kittens.",
     },
@@ -28,6 +29,15 @@ export default function Home() {
       setLoadingMessages(false);
       return;
     }
+    prompt.forEach((message: any) => {
+      if (!VALID_USERNAME.test(message.username)) {
+        alert(
+          "Invalid username. Username must be between 4 and 20 characters long and can only contain alphanumeric characters and underscores."
+        );
+        setLoadingMessages(false);
+        return;
+      }
+    });
     await fetch("/api/gpt", {
       method: "POST",
       headers: {

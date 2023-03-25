@@ -29,15 +29,15 @@ export default function Home() {
       setLoadingMessages(false);
       return;
     }
-    prompt.forEach((message: any) => {
-      if (!VALID_USERNAME.test(message.username)) {
+    for (let i = 0; i < prompt.length; i++) {
+      if (!VALID_USERNAME.test(prompt[i].username)) {
         alert(
-          "Invalid username. Username must be between 4 and 20 characters long and can only contain alphanumeric characters and underscores."
+          "Username must be between 4 and 20 characters long and can only contain letters, numbers and underscores."
         );
         setLoadingMessages(false);
         return;
       }
-    });
+    }
     await fetch("/api/gpt", {
       method: "POST",
       headers: {

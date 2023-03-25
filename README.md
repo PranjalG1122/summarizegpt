@@ -1,6 +1,8 @@
 # SummarizeGPT: A tool for summarizing text messages in a chatting application
 
-Website link:
+Website link: [https://summarizegpt.vercel.app/](https://summarizegpt.vercel.app/)
+
+Portfolio: [https://pranjalg420.vercel.app](https://pranjalg420.vercel.app)
 
 ## Introduction
 

@@ -65,10 +65,11 @@ export default function Home() {
       <p className="lg:text-lg text-base text-white">
         This web app uses the OpenAI ChatGPT 3.5-Turbo API to summarize any
         previous messages sent by other uses in a simulated chat program.
-        Clicking 'Summarize Messages' will return a short and informative
-        paragraph containing pertinent information, such as important meetings,
-        dates, timings and more. Test out the summary bot demo by entering a
-        custom username and a custom message and click 'Summarize'.
+        Clicking the button Summarize Messages will return a short and
+        informative paragraph containing pertinent information, such as
+        important meetings, dates, timings and more. Test out the summary bot
+        demo by entering a custom username and a custom message and click
+        Summarize.
       </p>
       <span className="text-white">
         OpenAI API Summarize Bot by{" "}
